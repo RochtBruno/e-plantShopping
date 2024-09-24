@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { removeItem, updateQuantity, addItem } from './CartSlice'; // Importar ações
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
-  const cart = useSelector(state => state.cart.items);
-  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart.items); // Recupera itens do carrinho do Redux
+  const dispatch = useDispatch(); // Criar dispatch
 
-  // Calculate total amount for all products in the cart
+  // Calcula o valor total de todos os produtos no carrinho
   const calculateTotalAmount = () => {
     return cart.reduce((total, item) => total + (item.cost * item.quantity), 0).toFixed(2);
   };
@@ -19,20 +19,20 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleIncrement = (item) => {
-    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 })); // Atualiza a quantidade
   };
 
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
-      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 })); // Atualiza a quantidade
     }
   };
 
   const handleRemove = (item) => {
-    dispatch(removeItem(item.name));
+    dispatch(removeItem(item.name)); // Remove item do carrinho
   };
 
-  // Calculate total cost based on quantity for an item
+  // Calcula o custo total com base na quantidade para um item
   const calculateTotalCost = (item) => {
     return (item.cost * item.quantity).toFixed(2);
   };

@@ -1,10 +1,14 @@
-import React, { useState,useEffect } from 'react';
-import './ProductList.css'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; // Importar hooks do Redux
+import { addItem } from './CartSlice'; // Importar a ação addItem
+import './ProductList.css';
 import CartItem from './CartItem';
-import addItem from './CartSlice'
+
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
-    const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [showPlants, setShowPlants] = useState(false); 
+    const dispatch = useDispatch(); // Criar dispatch para disparar ações do Redux
+    const cartItems = useSelector(state => state.cart.items); // Recuperar itens do carrinho da store do Redux
     const [addedToCart, setAddedToCart] = useState({});
     const plantsArray = [
         {
